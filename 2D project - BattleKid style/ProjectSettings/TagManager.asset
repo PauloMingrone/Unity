@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - PlayerBullet
+  - FloorWall
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - Ground
+  - Player
+  - Enemy
+  - Spawners
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Spawners
+    uniqueID: 529650941
+    locked: 0
+  - name: Background
+    uniqueID: 2802606715
+    locked: 0
+  - name: Water
+    uniqueID: 2985004361
+    locked: 0
+  - name: Platforms
+    uniqueID: 3044464147
+    locked: 0
+  - name: Player & Enemies
+    uniqueID: 984893589
+    locked: 0
