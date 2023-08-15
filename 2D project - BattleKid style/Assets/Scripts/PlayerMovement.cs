@@ -36,38 +36,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Player RB veolicity becomes horizontal speed * 1 or -1 is Horizontal input Happens (Input manager)
-        playerRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * horizontalSpeed, playerRB.velocity.y);
+        if (!PauseMenu.instance.isGamePaused)
+        {
+            Move();
 
-        if (playerRB.velocity.x < 0)
-        {
-            playerSR.flipX = true;
-        }
-        else if (playerRB.velocity.x > 0)
-        {
-            playerSR.flipX = false;
-        }
+            Jump();
 
-        isGrounded = Physics2D.OverlapCircle(groundCollider.position, .2f, groundLayer); //checks if collider overlap with any ground layer object
-        //if jump button pressed and player in the ground
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (isGrounded)
+            //shoot logic
+            if (Input.GetButtonDown("Fire1"))
             {
-                AudioManager.instance.PlaySFX(4);
-                playerRB.velocity = new Vector2(playerRB.velocity.x, jumpSpeed);
+                Shoot();
             }
-
-        }
-
-        //shoot logic
-        if (Input.GetButtonDown("Fire1")){
-            Shoot();
-        }
-
-        //set animation parameters
-        playerAnim.SetBool("isGrounded", isGrounded);
-        playerAnim.SetFloat("moveSpeed", Mathf.Abs(playerRB.velocity.x));
+        }        
     }
     //Check when colision with objects tagged Enemy
     void OnCollisionEnter2D(Collision2D collision)
@@ -110,7 +90,37 @@ public class PlayerMovement : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void Move()
+    {
+        //Player RB veolicity becomes horizontal speed * 1 or -1 is Horizontal input Happens (Input manager)
+        playerRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * horizontalSpeed, playerRB.velocity.y);
 
+        if (playerRB.velocity.x < 0)
+        {
+            playerSR.flipX = true;
+        }
+        else if (playerRB.velocity.x > 0)
+        {
+            playerSR.flipX = false;
+        }
+        playerAnim.SetFloat("moveSpeed", Mathf.Abs(playerRB.velocity.x));
+    }
+
+    void Jump()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCollider.position, .2f, groundLayer); //checks if collider overlap with any ground layer object
+        //if jump button pressed and player in the ground
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded)
+            {
+                AudioManager.instance.PlaySFX(4);
+                playerRB.velocity = new Vector2(playerRB.velocity.x, jumpSpeed);
+            }
+
+        }
+        playerAnim.SetBool("isGrounded", isGrounded);
+    }
 
 
 }
