@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     Transform playerTransform;
     Vector3 firePos;
     Quaternion fireRotation;
+    int ammo = 3;
 
     //for sprite animations
     Animator playerAnim;
@@ -61,16 +62,19 @@ public class PlayerMovement : MonoBehaviour
     }
     void Shoot()
     {
-        AudioManager.instance.PlaySFX(5);
-        playerAnim.SetBool("isShooting", true);
-        firePos = playerTransform.position;
-        fireRotation = playerTransform.rotation;
-        var bullet = Instantiate(firePrefab, firePos, fireRotation);
-        if (playerSR.flipX)
-        {
-            bullet.transform.localScale = new Vector3(-1,1,1);
+        if (ammo > 0) {
+            ammo--;
+            AudioManager.instance.PlaySFX(5);
+            playerAnim.SetBool("isShooting", true);
+            firePos = playerTransform.position;
+            fireRotation = playerTransform.rotation;
+            var bullet = Instantiate(firePrefab, firePos, fireRotation);
+            if (playerSR.flipX)
+            {
+                bullet.transform.localScale = new Vector3(-1,1,1);
+            }
+            Invoke("StopShootingAnim", 1f);
         }
-        Invoke("StopShootingAnim", 1f);
 
     }
 
@@ -123,6 +127,10 @@ public class PlayerMovement : MonoBehaviour
 
         }
         playerAnim.SetBool("isGrounded", isGrounded);
+    }
+    public void IncreaseAmmo() //called by a bullet when it is destroyed
+    {
+        ammo++;
     }
 
 

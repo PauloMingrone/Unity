@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     float bulletSpeed = 10f;
+    GameObject player;
+    PlayerMovement playerScript;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
+        playerScript = player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -20,7 +24,7 @@ public class PlayerBullet : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        DestroyBullet();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -28,8 +32,15 @@ public class PlayerBullet : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             AudioManager.instance.PlaySFX(3);
-            Destroy(gameObject);
+            DestroyBullet();
         }
     }
 
+    void DestroyBullet()
+    {
+        playerScript.IncreaseAmmo();
+        Destroy(gameObject);
+    }
+
+    
 }
