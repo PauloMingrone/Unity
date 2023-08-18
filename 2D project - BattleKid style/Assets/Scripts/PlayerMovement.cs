@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer playerSR; //Sprite adjustments
 
     //Jump variables 
-    public float jumpSpeed = 6.5f;
+    public float jumpSpeed = 10f;
     private bool isGrounded;
     public LayerMask groundLayer; // ground layer here
     public Transform groundCollider; // collider child object here
@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Shoot();
             }
+            
         }        
     }
     //Check when colision with objects tagged Enemy
