@@ -7,6 +7,7 @@ public class PlayerBullet : MonoBehaviour
     float bulletSpeed = 10f;
     GameObject player;
     PlayerMovement playerScript;
+    bool destroyedByEnemy = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,11 @@ public class PlayerBullet : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        DestroyBullet();
+        if (!destroyedByEnemy)
+        {
+            DestroyBullet();
+        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -32,6 +37,7 @@ public class PlayerBullet : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             AudioManager.instance.PlaySFX(3);
+            destroyedByEnemy = true;
             DestroyBullet();
         }
     }
