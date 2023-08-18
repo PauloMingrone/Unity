@@ -36,4 +36,14 @@ public class GameMaster : MonoBehaviour
     {
         cameraRespawnPosition = cameraPosition;
     }
+
+    public Vector3 ReturnPlayerPosition()
+    {
+        return playerRespawnPosition;
+    }
+
+    public Vector3 ReturnCameraPosition()
+    {
+        return cameraRespawnPosition;
+    }
 }

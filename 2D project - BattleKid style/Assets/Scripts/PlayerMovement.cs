@@ -80,14 +80,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        //Animation event will call DestroyPlayer
+        //Animation event will call RespawnPlayer
         playerAnim.SetBool("isDead", true);
         AudioManager.instance.PlaySFX(2);
     }
 
-    void DestroyPlayer()
+    void RespawnPlayer()
     {
-        Destroy(gameObject);
+        playerAnim.SetBool("isDead", false);
+        transform.position = GameMaster.instance.ReturnPlayerPosition();
+        Camera.main.transform.position = GameMaster.instance.ReturnCameraPosition();
     }
 
     void Move()
