@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
     Transform playerTransform;
     Vector3 firePos;
     Quaternion fireRotation;
-    int ammo = 3;
+    int maxAmmo = 3;
+    int ammo;
 
     //for sprite animations
     Animator playerAnim;
@@ -32,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
         playerSR = GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         playerAnim = GetComponent<Animator>();
+
+        ammo = maxAmmo;
     }
 
     // Update is called once per frame
@@ -115,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCollider.position, .2f, groundLayer); //checks if collider overlap with any ground layer object
+        isGrounded = Physics2D.OverlapCircle(groundCollider.position, .1f, groundLayer); //checks if collider overlap with any ground layer object
         //if jump button pressed and player in the ground
         if (Input.GetButtonDown("Jump"))
         {
@@ -130,7 +133,15 @@ public class PlayerMovement : MonoBehaviour
     }
     public void IncreaseAmmo() //called by a bullet when it is destroyed
     {
-        ammo++;
+        if (ammo < maxAmmo)
+        {
+            ammo++;
+        } 
+        
+        if (ammo > maxAmmo) 
+        { 
+            ammo = maxAmmo;
+        }
     }
 
 
