@@ -88,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
+        GameMaster.instance.increaseDeath();
         //Animation event will call RespawnPlayer
         playerAnim.SetBool("isDead", true);
         AudioManager.instance.PlaySFX(2);

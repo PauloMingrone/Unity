@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameMaster : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class GameMaster : MonoBehaviour
     Vector3 playerRespawnPosition;
     Vector3 cameraRespawnPosition;
 
+    int xRoom, yRoom;
+    
+    int deathcounter;
+    public TextMeshProUGUI deathCounterText;
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -18,6 +24,8 @@ public class GameMaster : MonoBehaviour
 
     void Start()
     {
+        resetDeathCounter();
+
         
     }
 
@@ -45,5 +53,15 @@ public class GameMaster : MonoBehaviour
     public Vector3 ReturnCameraPosition()
     {
         return cameraRespawnPosition;
+    }
+    public void resetDeathCounter()
+    {
+        deathcounter = 0;
+        deathCounterText.text = deathcounter.ToString();
+    }
+    public void increaseDeath()
+    {
+        deathcounter++;
+        deathCounterText.text = deathcounter.ToString();
     }
 }
