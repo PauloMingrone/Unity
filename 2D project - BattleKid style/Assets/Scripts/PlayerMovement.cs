@@ -99,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnim.SetBool("isDead", false);
         transform.position = GameMaster.instance.ReturnPlayerPosition();
         Camera.main.transform.position = GameMaster.instance.ReturnCameraPosition();
+        GameMaster.instance.MapRespawn();
     }
 
     void Move()

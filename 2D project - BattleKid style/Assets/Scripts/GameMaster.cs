@@ -10,10 +10,11 @@ public class GameMaster : MonoBehaviour
     Vector3 playerRespawnPosition;
     Vector3 cameraRespawnPosition;
 
-    int xRoom, yRoom;
+    int xRoom, yRoom, xRespawn, yRespawn;
     
     int deathcounter;
     public TextMeshProUGUI deathCounterText;
+    public TextMeshProUGUI mapText;
     
     // Start is called before the first frame update
     void Awake()
@@ -25,6 +26,7 @@ public class GameMaster : MonoBehaviour
     void Start()
     {
         resetDeathCounter();
+        ResetMap();
 
         
     }
@@ -35,6 +37,7 @@ public class GameMaster : MonoBehaviour
         
     }
 
+    //Respawn functions
     public void PlayerRespawnUpdate(Vector3 playerPosition)
     {
         playerRespawnPosition = playerPosition;
@@ -54,6 +57,9 @@ public class GameMaster : MonoBehaviour
     {
         return cameraRespawnPosition;
     }
+
+
+    //DeathCounter functions
     public void resetDeathCounter()
     {
         deathcounter = 0;
@@ -63,5 +69,47 @@ public class GameMaster : MonoBehaviour
     {
         deathcounter++;
         deathCounterText.text = deathcounter.ToString();
+    }
+
+
+    //Map functions
+    public void ResetMap()
+    {
+        xRoom = 1;
+        yRoom = 1;
+        UpdateMap();
+            
+
+    }
+
+    public void UpdateXRoom(int value)
+    {
+        xRoom += value;
+        UpdateMap();
+    }
+
+    public void UpdateYRoom(int value)
+    {
+        yRoom += value;
+        UpdateMap();
+    }
+
+    void UpdateMap()
+    {
+        mapText.text = string.Concat(xRoom.ToString() + " / " + yRoom.ToString());
+    }
+    
+    public void MapRespawnUpdate() 
+    {
+        xRespawn = xRoom; 
+        yRespawn = yRoom;
+    }
+
+    public void MapRespawn()
+    {
+        xRoom = xRespawn;
+        yRoom = yRespawn;
+        UpdateMap();
+
     }
 }

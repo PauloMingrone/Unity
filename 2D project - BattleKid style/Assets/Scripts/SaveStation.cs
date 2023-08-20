@@ -34,6 +34,7 @@ public class SaveStation : MonoBehaviour
             //update player respawn position on GameMaster
             GameMaster.instance.PlayerRespawnUpdate(objectPosition);
             GameMaster.instance.CameraRespawnUpdate(Camera.main.transform.position);
+            GameMaster.instance.MapRespawnUpdate();
            
         }
     }

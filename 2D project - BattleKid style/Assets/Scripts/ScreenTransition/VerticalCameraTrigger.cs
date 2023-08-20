@@ -31,11 +31,12 @@ public class VerticalCameraTrigger : MonoBehaviour
             if (playerPosY > transform.position.y)
             {
                 cameraTransform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y - cameraMovementY, cameraTransform.position.z);
+                GameMaster.instance.UpdateYRoom(1);
             }
             else
             {
                 cameraTransform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y + cameraMovementY, cameraTransform.position.z);
-
+                GameMaster.instance.UpdateYRoom(-1);
             }
         }
     }

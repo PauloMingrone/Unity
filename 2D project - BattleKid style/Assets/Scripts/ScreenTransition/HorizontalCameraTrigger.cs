@@ -30,10 +30,12 @@ public class HorizontalCameraTrigger : MonoBehaviour
             if (playerPosX > transform.position.x)
             {
                 cameraTransform.position = new Vector3(cameraTransform.position.x - cameraMovementX, cameraTransform.position.y, cameraTransform.position.z);
+                GameMaster.instance.UpdateXRoom(-1);
             }
             else
             {
                 cameraTransform.position = new Vector3(cameraTransform.position.x + cameraMovementX, cameraTransform.position.y, cameraTransform.position.z);
+                GameMaster.instance.UpdateXRoom(1);
             }
         }
     }
