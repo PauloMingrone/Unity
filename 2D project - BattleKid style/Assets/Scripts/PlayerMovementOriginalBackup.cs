@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementOriginalBackup : MonoBehaviour
 {
     //Horizontal movement variables
-    float maxSpeed = 7f;
-    float targetSpeed;
-    float speedAcceleration;
-    float accelerationModifier = 1.25f;
-    float stopMovementFactor = 3.5f;
+    public float horizontalSpeed = 5;
     Rigidbody2D playerRB;
     SpriteRenderer playerSR; //Sprite adjustments
 
@@ -58,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
             
         }        
     }
-
     //Check when colision with objects tagged Enemy
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -68,7 +63,6 @@ public class PlayerMovement : MonoBehaviour
             
         }
     }
-
     void Shoot()
     {
         if (ammo > 0) {
@@ -111,29 +105,13 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         //Player RB veolicity becomes horizontal speed * 1 or -1 is Horizontal input Happens (Input manager)
-        targetSpeed = Input.GetAxisRaw("Horizontal") * maxSpeed;
-        if (Mathf.Abs(targetSpeed) > 0f)
-        {
-            speedAcceleration = (targetSpeed - playerRB.velocity.x) / accelerationModifier;
-        }
-        else
-        {
-            speedAcceleration = - playerRB.velocity.x * 1.5f;
+        playerRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * horizontalSpeed, playerRB.velocity.y);
 
-        }
-        playerRB.AddForce(speedAcceleration * Vector2.right);
-        
-        if ((targetSpeed == 0) && (Mathf.Abs(playerRB.velocity.x) < stopMovementFactor)) 
-        {
-            playerRB.velocity = new Vector2(0, playerRB.velocity.y);
-        }
-
-
-        if (playerRB.velocity.x < -0.1f && !playerSR.flipX)
+        if (playerRB.velocity.x < 0)
         {
             playerSR.flipX = true;
         }
-        else if (playerRB.velocity.x > 0.1f && playerSR.flipX)
+        else if (playerRB.velocity.x > 0)
         {
             playerSR.flipX = false;
         }
