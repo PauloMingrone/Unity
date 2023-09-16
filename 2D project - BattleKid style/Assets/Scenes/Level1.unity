@@ -47892,6 +47892,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6599310375436903760, guid: 5b439c843d882de4cb5be85e151531c0, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6599310375436903760, guid: 5b439c843d882de4cb5be85e151531c0, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 88485553
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b439c843d882de4cb5be85e151531c0, type: 3}
 --- !u!1001 &763802679
@@ -48860,6 +48868,10 @@ PrefabInstance:
       propertyPath: m_Interpolate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5619552196236992052, guid: 6d17fd21b1271214e8d188a222b605e7, type: 3}
+      propertyPath: jumpTimeLimit
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6576472157641291667, guid: 6d17fd21b1271214e8d188a222b605e7, type: 3}
       propertyPath: m_Name
       value: Player
@@ -49217,7 +49229,7 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 984893589
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Time: 10
   m_Parameters:

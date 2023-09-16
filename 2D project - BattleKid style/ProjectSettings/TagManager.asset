@@ -47,7 +47,10 @@ TagManager:
   - name: Spawners
     uniqueID: 529650941
     locked: 0
-  - name: Background
+  - name: MainBackground
+    uniqueID: 88485553
+    locked: 0
+  - name: BackgroundDetails
     uniqueID: 2802606715
     locked: 0
   - name: Water
