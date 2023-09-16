@@ -14,12 +14,21 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer playerSR; //Sprite adjustments
 
     //Jump variables 
-    public float jumpSpeed = 10f;
-    private bool isGrounded;
+    [Header("Jump System")]
+    float jumpSpeed = 8f;
+    bool isGrounded = false;
+    bool isJumping = false;
+    float jumpCounter = 0f;
+    Vector2 gravityVector;
+    float jumpTimeLimit = 0.3f;
+    float jumpModifier = 1.25f;
+    float fallModifier = 2f;
+    float fallMaxSpeed = -15f;
     public LayerMask groundLayer; // ground layer here
     public Transform groundCollider; // collider child object here
 
     //Shoot logic
+    [Header("Shoot System")]
     public GameObject firePrefab;
     Transform playerTransform;
     Vector3 firePos;
@@ -37,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
         playerSR = GetComponent<SpriteRenderer>();
         playerTransform = GetComponent<Transform>();
         playerAnim = GetComponent<Animator>();
+
+        gravityVector = new Vector2(0, -Physics2D.gravity.y);
 
         ammo = maxAmmo;
     }
@@ -123,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
         }
         playerRB.AddForce(speedAcceleration * Vector2.right);
         
+        //logic to speedup slowdown when no horizontal input
         if ((targetSpeed == 0) && (Mathf.Abs(playerRB.velocity.x) < stopMovementFactor)) 
         {
             playerRB.velocity = new Vector2(0, playerRB.velocity.y);
@@ -144,15 +156,39 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCollider.position, .1f, groundLayer); //checks if collider overlap with any ground layer object
         //if jump button pressed and player in the ground
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            if (isGrounded)
-            {
-                AudioManager.instance.PlaySFX(4);
-                playerRB.velocity = new Vector2(playerRB.velocity.x, jumpSpeed);
-            }
+            isJumping = true;
+            jumpCounter = 0;
+            AudioManager.instance.PlaySFX(4);
+            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpSpeed);
 
         }
+        
+        if(playerRB.velocity.y > 0 && isJumping)
+        {
+            jumpCounter += Time.deltaTime;
+            playerRB.velocity += gravityVector * jumpModifier * Time.deltaTime;
+            if (jumpCounter > jumpTimeLimit) 
+            {
+                isJumping = false;
+            }
+            
+        }
+        if(playerRB.velocity.y < 0)
+        {
+            isJumping = false;
+            playerRB.velocity -= gravityVector * fallModifier * Time.deltaTime;
+            if (playerRB.velocity.y < fallMaxSpeed)
+            {
+                playerRB.velocity = new Vector2 (playerRB.velocity.x, fallMaxSpeed);
+            }
+        }
+        if (Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
+        }
+
         playerAnim.SetBool("isGrounded", isGrounded);
     }
     public void IncreaseAmmo() //called by a bullet when it is destroyed
