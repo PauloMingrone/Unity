@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded = false;
     bool isJumping = false;
     float jumpCounter = 0f;
+    float GROUND_DISTANCE_CHECK = 0.2f;
     Vector2 gravityVector;
     float jumpTimeLimit = 0.3f;
     float jumpModifier = 1.25f;
@@ -105,10 +106,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        GameMaster.instance.increaseDeath();
-        //Animation event will call RespawnPlayer
-        playerAnim.SetBool("isDead", true);
-        AudioManager.instance.PlaySFX(2);
+        if (!playerAnim.GetBool("isDead"))
+        {
+            GameMaster.instance.increaseDeath();
+            //Animation event will call RespawnPlayer
+            playerAnim.SetBool("isDead", true);
+            AudioManager.instance.PlaySFX(2);
+        }
     }
 
     void RespawnPlayer()
@@ -154,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCollider.position, .1f, groundLayer); //checks if collider overlap with any ground layer object
+        isGrounded = Physics2D.OverlapCircle(groundCollider.position, GROUND_DISTANCE_CHECK, groundLayer); //checks if collider overlap with any ground layer object
         //if jump button pressed and player in the ground
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
