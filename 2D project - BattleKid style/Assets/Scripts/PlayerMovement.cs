@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded = false;
     bool isJumping = false;
     float jumpCounter = 0f;
-    float GROUND_DISTANCE_CHECK = 0.2f;
+    float GROUND_DISTANCE_CHECK = 0.175f;
     Vector2 gravityVector;
     float jumpTimeLimit = 0.3f;
     float jumpModifier = 1.25f;
@@ -117,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
 
     void RespawnPlayer()
     {
+        //called by animator
         playerAnim.SetBool("isDead", false);
         transform.position = GameMaster.instance.ReturnPlayerPosition();
         Camera.main.transform.position = GameMaster.instance.ReturnCameraPosition();
