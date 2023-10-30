@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     int maxAmmo = 3;
     int ammo;
 
+    //Keys and PowerUps
+    bool key1;
+
     //for sprite animations
     Animator playerAnim;
     
